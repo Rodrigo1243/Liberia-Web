@@ -34,6 +34,9 @@ h1, h2, h3, h4, h5 {
   z-index: 1;
 }
 
+/* Hide Alpine x-cloak elements before init */
+[x-cloak] { display: none !important; }
+
 /* Smooth scroll anchor offset */
 [id] {
   scroll-margin-top: 5rem;
