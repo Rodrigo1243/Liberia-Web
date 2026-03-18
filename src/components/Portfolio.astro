@@ -1,0 +1,265 @@
+---
+import { projects as allProjects } from '../data/projects';
+
+interface Props {
+  t: {
+    label: string;
+    title: string;
+    filters: {
+      all: string;
+      exteriores: string;
+      interiores: string;
+      animaciones: string;
+      producto: string;
+    };
+  };
+  lang: string;
+  expandLabel?: string;
+  collapseLabel?: string;
+}
+
+const { t, lang, expandLabel, collapseLabel } = Astro.props;
+const _expandLabel   = expandLabel  ?? (lang === 'es' ? 'Ver todos los proyectos' : 'View all projects');
+const _collapseLabel = collapseLabel ?? (lang === 'es' ? 'Colapsar'               : 'Collapse');
+const allProjectsLabel = lang === 'es' ? 'Ver todos los proyectos' : 'View all projects';
+const allProjectsUrl   = `/${lang}/proyectos`;
+const consultarLabel   = lang === 'es' ? 'Consultar'              : 'Contact';
+const viewProjectLabel = lang === 'es' ? 'Ver proyecto completo'  : 'View full project';
+
+// Layout config: col span + height for each slot in the grid
+// Rows must sum to 12. 24 cover images across 10 projects.
+const layout: { col: number; h: number }[] = [
+  { col: 7,  h: 65 }, { col: 5,  h: 65 }, // row 1
+  { col: 12, h: 75 },                      // row 2 (full)
+  { col: 8,  h: 60 }, { col: 4,  h: 60 }, // row 3
+  { col: 6,  h: 58 }, { col: 6,  h: 58 }, // row 4
+  { col: 5,  h: 62 }, { col: 7,  h: 62 }, // row 5
+  { col: 4,  h: 55 }, { col: 8,  h: 55 }, // row 6
+  { col: 12, h: 72 },                      // row 7 (full)
+  { col: 7,  h: 60 }, { col: 5,  h: 60 }, // row 8
+  { col: 6,  h: 55 }, { col: 6,  h: 55 }, // row 9
+  { col: 12, h: 80 },                      // row 10 (full)
+  { col: 8,  h: 65 }, { col: 4,  h: 65 }, // row 11
+  { col: 5,  h: 58 }, { col: 7,  h: 58 }, // row 12
+  { col: 6,  h: 52 }, { col: 6,  h: 52 }, // row 13
+  { col: 12, h: 70 },                      // row 14 (full)
+];
+
+// Flatten coverImages from all projects into grid items
+const projects = allProjects.flatMap((p) =>
+  p.coverImages.map((src) => ({
+    src,
+    title: p.title,
+    sub: p.category,
+    slug: p.slug,
+  }))
+).slice(0, layout.length).map((item, i) => ({ ...item, ...layout[i] }));
+
+const countries = ['AU Australia','DE Alemania','NL Holanda','AR Argentina','UY Uruguay','MX México','US Estados Unidos','ES España','GB Inglaterra','JP Japón'];
+const tools = ['Photoshop','3ds Max','SketchUp','V-Ray','D5 Render','Lumion','AutoCAD','Corona Renderer'];
+const countriesDouble = [...countries, ...countries];
+const toolsDouble = [...tools, ...tools];
+---
+
+<section id="portfolio" class="bg-[#0D0D0B]">
+
+  <div
+    x-data={`{
+      isLg: window.innerWidth >= 1024,
+      projects: ${JSON.stringify(projects)},
+      lightbox: null,
+      expanded: false,
+      colStyle(p) {
+        if (this.isLg) return 'grid-column: span ' + p.col + ' / span ' + p.col + '; height: clamp(280px, ' + p.h + 'vh, 900px);';
+        return 'grid-column: span 12 / span 12; height: clamp(240px, 60vw, 500px);';
+      },
+      open(p) { this.lightbox = p; document.body.style.overflow = 'hidden'; },
+      close() { this.lightbox = null; document.body.style.overflow = ''; }
+    }`}
+    x-init="window.addEventListener('resize', () => { isLg = window.innerWidth >= 1024 })"
+    @keydown.escape.window="close()"
+  >
+
+    <!-- Grid wrapper — collapses when not expanded -->
+    <div class="relative">
+      <div
+        :class="expanded ? '' : 'max-h-[160vh] overflow-hidden'"
+        style="transition: max-height 0.6s ease;"
+      >
+        <div class="grid grid-cols-12 gap-px" style="background: #1a1a18;">
+          <template x-for="(p, i) in projects" :key="i">
+            <div
+              :style="colStyle(p)"
+              class="group relative overflow-hidden cursor-zoom-in"
+              @click="open(p)"
+            >
+              <img
+                :src="p.src"
+                :alt="p.title"
+                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- Frost overlay — visible when collapsed -->
+      <div
+        x-show="!expanded"
+        class="frost-overlay absolute bottom-0 inset-x-0 h-72 pointer-events-none"
+      >
+        <!-- blurred glass layer with mask so blur fades upward -->
+        <div class="frost-blur absolute inset-0"></div>
+        <!-- dark gradient on top -->
+        <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(13,13,11,0.92) 20%, rgba(13,13,11,0.5) 55%, transparent 100%);"></div>
+        <!-- button -->
+        <div class="absolute bottom-8 inset-x-0 flex justify-center pointer-events-auto">
+          <button
+            @click="expanded = true"
+            class="flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 text-white/80 hover:text-white hover:bg-white/15 hover:border-white/35 text-xs tracking-[0.2em] uppercase px-7 py-3.5  transition-all duration-300 cursor-pointer"
+          >
+            <span>{_expandLabel}</span>
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collapse button + Ver todos — visible when expanded -->
+    <div x-show="expanded" class="flex flex-wrap justify-center gap-3 py-10">
+      <button
+        @click="expanded = false; $nextTick(() => document.getElementById('portfolio').scrollIntoView({ behavior: 'smooth' }))"
+        class="flex items-center gap-3 bg-white/5 border border-white/10 text-white/40 hover:text-white/70 hover:border-white/20 text-xs tracking-[0.2em] uppercase px-7 py-3  transition-all duration-300 cursor-pointer"
+      >
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>{_collapseLabel}</span>
+      </button>
+      <a
+        href={allProjectsUrl}
+        class="flex items-center gap-3 bg-white/5 border border-white/15 text-white/60 hover:text-white hover:bg-white/10 hover:border-white/30/70 text-xs tracking-[0.2em] uppercase px-7 py-3  transition-all duration-300 cursor-pointer"
+      >
+        <span>{allProjectsLabel}</span>
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Lightbox -->
+    <template x-if="lightbox">
+      <div
+        class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm"
+        x-transition:enter="transition duration-200"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        @click.self="close()"
+      >
+        <button
+          @click="close()"
+          class="absolute top-5 right-5 text-white/50 hover:text-white transition-colors duration-200 cursor-pointer z-10"
+          aria-label={lang === 'es' ? 'Cerrar' : 'Close'}
+        >
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path d="M6 6l12 12M6 18L18 6" stroke-linecap="round"/>
+          </svg>
+        </button>
+
+        <div
+          class="flex flex-col lg:flex-row items-stretch max-w-[95vw] max-h-[92vh] w-full lg:w-auto gap-0"
+          x-transition:enter="transition duration-300"
+          x-transition:enter-start="opacity-0 scale-[0.97]"
+          x-transition:enter-end="opacity-100 scale-100"
+        >
+          <img
+            :src="lightbox.src"
+            :alt="lightbox.title"
+            class="block max-h-[70vh] lg:max-h-[85vh] lg:max-w-[75vw] w-auto h-auto object-contain"
+          />
+
+          <div class="bg-[#0D0D0B] border-t border-white/5 lg:border-t-0 lg:border-l lg:border-white/5 p-8 lg:p-10 flex flex-col gap-6 lg:w-64 flex-shrink-0 justify-between">
+            <div class="flex flex-col gap-6">
+              <p class="text-white/60 text-[10px] tracking-[0.3em] uppercase font-medium" x-text="lightbox.sub"></p>
+              <h3 class="font-display text-white text-2xl font-light leading-snug" x-text="lightbox.title"></h3>
+              <div class="w-8 h-px bg-white/20"></div>
+              <dl class="flex flex-col gap-4 text-sm">
+                <div>
+                  <dt class="text-white/30 text-[10px] tracking-[0.2em] uppercase mb-1">{lang === 'es' ? 'Tipo' : 'Type'}</dt>
+                  <dd class="text-white/70" x-text="lightbox.sub"></dd>
+                </div>
+                <div>
+                  <dt class="text-white/30 text-[10px] tracking-[0.2em] uppercase mb-1">{lang === 'es' ? 'Estudio' : 'Studio'}</dt>
+                  <dd class="text-white/70">Líbera Estudio</dd>
+                </div>
+              </dl>
+            </div>
+            <div class="flex flex-col gap-3">
+              <a
+                :href={`'/${lang}/proyecto/' + lightbox.slug`}
+                target="_blank"
+                rel="noopener"
+                class="flex items-center justify-center gap-2 w-full bg-white/8 border border-white/20 text-white/80 hover:text-white hover:bg-white/12 hover:border-white/30 text-[10px] tracking-[0.2em] uppercase px-5 py-3  transition-all duration-200 cursor-pointer"
+              >
+                {viewProjectLabel}
+                <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a
+                href="#contacto"
+                @click="close()"
+                class="flex items-center justify-center gap-2 border border-white/15 text-white/50 hover:text-white hover:border-white/30 text-[10px] tracking-[0.2em] uppercase px-5 py-3  transition-all duration-200 cursor-pointer"
+              >
+                {consultarLabel}
+                <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+  </div>
+
+  <!-- Marquee — below the portfolio grid -->
+  <div class="py-10 overflow-hidden select-none border-t border-white/5">
+
+    <div class="marquee-track mb-4">
+      <div class="marquee-inner marquee-ltr">
+        {countriesDouble.map((item) => (
+          <span class="marquee-item text-white font-display text-sm tracking-widest uppercase">
+            {item}
+            <span class="mx-8 text-white/60">·</span>
+          </span>
+        ))}
+      </div>
+    </div>
+
+
+  </div>
+
+</section>
+
+<style>
+  .marquee-track { overflow: hidden; width: 100%; }
+  .marquee-inner { display: flex; width: max-content; white-space: nowrap; }
+  .marquee-item  { display: inline-flex; align-items: center; }
+  .marquee-ltr   { animation: marquee-ltr 30s linear infinite; }
+  .marquee-rtl   { animation: marquee-rtl 25s linear infinite; }
+  @keyframes marquee-ltr { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes marquee-rtl { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+  .marquee-track:hover .marquee-inner { animation-play-state: paused; }
+
+  .frost-blur {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    mask-image: linear-gradient(to top, black 30%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to top, black 30%, transparent 100%);
+  }
+</style>

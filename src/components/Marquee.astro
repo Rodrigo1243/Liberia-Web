@@ -1,0 +1,98 @@
+---
+// No props needed — content is hardcoded
+const countries = [
+  '🇺🇸 Estados Unidos',
+  '🇪🇸 España',
+  '🇬🇧 Inglaterra',
+  '🇯🇵 Japón',
+  '🇦🇺 Australia',
+  '🇩🇪 Alemania',
+  '🇳🇱 Holanda',
+  '🇦🇷 Argentina',
+  '🇺🇾 Uruguay',
+  '🇲🇽 México',
+];
+
+const tools = [
+  'Photoshop',
+  '3ds Max',
+  'SketchUp',
+  'V-Ray',
+  'D5 Render',
+  'Lumion',
+  'AutoCAD',
+  'Corona Renderer',
+];
+
+// Duplicate for seamless loop
+const countriesDouble = [...countries, ...countries];
+const toolsDouble = [...tools, ...tools];
+---
+
+<div class="bg-[#0D0D0B] py-10 overflow-hidden select-none">
+
+  <!-- Row 1: Countries — left to right -->
+  <div class="marquee-track mb-4">
+    <div class="marquee-inner marquee-ltr">
+      {countriesDouble.map((item) => (
+        <span class="marquee-item text-white font-display text-sm tracking-widest uppercase">
+          {item}
+          <span class="mx-8 text-white/60">·</span>
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <!-- Row 2: Tools — right to left -->
+  <div class="marquee-track">
+    <div class="marquee-inner marquee-rtl">
+      {toolsDouble.map((item) => (
+        <span class="marquee-item text-white font-display text-sm tracking-widest uppercase">
+          {item}
+          <span class="mx-8 text-white/30">·</span>
+        </span>
+      ))}
+    </div>
+  </div>
+
+</div>
+
+<style>
+  .marquee-track {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .marquee-inner {
+    display: flex;
+    width: max-content;
+    white-space: nowrap;
+  }
+
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .marquee-ltr {
+    animation: marquee-ltr 30s linear infinite;
+  }
+
+  .marquee-rtl {
+    animation: marquee-rtl 25s linear infinite;
+  }
+
+  @keyframes marquee-ltr {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  @keyframes marquee-rtl {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+
+  .marquee-track:hover .marquee-inner {
+    animation-play-state: paused;
+  }
+</style>

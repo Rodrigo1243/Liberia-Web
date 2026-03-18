@@ -1,0 +1,164 @@
+---
+import type { Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  t: {
+    portfolio: string;
+    services: string;
+    process: string;
+    team: string;
+    contact: string;
+    lang: string;
+  };
+}
+
+const { lang, t } = Astro.props;
+const otherLang = lang === 'es' ? 'en' : 'es';
+
+const navItems = [
+  { href: `/${lang}#portfolio`, label: t.portfolio },
+  { href: `/${lang}#servicios`, label: t.services },
+  { href: `/${lang}#proceso`,   label: t.process },
+  { href: `/${lang}#equipo`,    label: t.team },
+  { href: `/${lang}#contacto`,  label: t.contact },
+];
+---
+
+<header
+  x-data="{ open: false, scrolled: false }"
+  x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 40 })"
+  class="fixed top-0 left-0 right-0 z-50"
+>
+  <nav class="max-w-full px-6 lg:px-12 flex items-center justify-between h-16 lg:h-20">
+
+    <!-- Logo left -->
+    <a href={`/${lang}`} class="flex-shrink-0">
+      <img src="/images/isotipo.png" alt="Líbera Estudio" class="h-10 w-auto" style="filter: brightness(0) invert(1);" />
+    </a>
+
+    <!-- Tubelight pill nav (desktop) -->
+    <div
+      class="hidden lg:flex absolute left-1/2 -translate-x-1/2"
+      x-data="{
+        active: 0,
+        pillLeft: 0,
+        pillWidth: 0,
+        init() {
+          this.$nextTick(() => {
+            const links = this.$el.querySelectorAll('[data-nav]');
+            if (links[0]) {
+              this.pillLeft = links[0].offsetLeft;
+              this.pillWidth = links[0].offsetWidth;
+            }
+            const sectionIds = ['portfolio','servicios','proceso','equipo','contacto'];
+            const updateActive = () => {
+              const offset = window.innerHeight * 0.4;
+              let current = 0;
+              sectionIds.forEach((id, i) => {
+                const el = document.getElementById(id);
+                if (el && el.getBoundingClientRect().top <= offset) current = i;
+              });
+              if (current !== this.active) {
+                this.active = current;
+                const link = links[current];
+                if (link) { this.pillLeft = link.offsetLeft; this.pillWidth = link.offsetWidth; }
+              }
+            };
+            window.addEventListener('scroll', updateActive, { passive: true });
+            updateActive();
+          });
+        },
+        go(el, idx) {
+          this.active = idx;
+          this.pillLeft = el.offsetLeft;
+          this.pillWidth = el.offsetWidth;
+        }
+      }"
+    >
+      <div class="relative flex items-center py-1 px-1">
+
+        <!-- Sliding background pill -->
+        <div
+          class="absolute rounded-full bg-white/10 transition-all duration-300 ease-out pointer-events-none"
+          style="top: 4px; height: calc(100% - 8px);"
+          :style="`left: ${pillLeft}px; width: ${pillWidth}px;`"
+        ></div>
+
+        <!-- Tubelight lamp glow -->
+        <div
+          class="absolute -top-px pointer-events-none transition-all duration-300 ease-out"
+          :style="`left: ${pillLeft + pillWidth / 2 - 16}px;`"
+        >
+          <div class="w-8 h-px bg-white rounded-full"></div>
+          <div class="absolute w-14 h-6 bg-white/15 rounded-full blur-lg -top-3 -left-3"></div>
+          <div class="absolute w-8 h-4 bg-white/20 rounded-full blur-md -top-2 left-0"></div>
+          <div class="absolute w-4 h-3 bg-white/30 rounded-full blur-sm -top-1 left-2"></div>
+        </div>
+
+        {navItems.map(({ href, label }, i) => (
+          <a
+            href={href}
+            data-nav
+            x-on:click={`go($el, ${i})`}
+            class="relative z-10 text-xs tracking-widest uppercase px-5 py-2 rounded-full transition-colors duration-200 text-white/50 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+            x-bind:class={`active === ${i} ? 'text-white' : ''`}
+          >
+            {label}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Right: social + lang + mobile toggle -->
+    <div class="flex items-center gap-5 flex-shrink-0">
+
+      <!-- Social icons (desktop) -->
+      <div class="hidden lg:flex items-center gap-4">
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="text-white/50 hover:text-white transition-colors duration-200" aria-label="Instagram">
+          <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener" class="text-white/50 hover:text-white transition-colors duration-200" aria-label="LinkedIn">
+          <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+      </div>
+
+      <!-- Lang switcher -->
+      <a
+        href={`/${otherLang}`}
+        class="text-white/50 hover:text-white/60 text-xs tracking-widest uppercase transition-colors duration-200"
+      >
+        {t.lang}
+      </a>
+
+      <!-- Mobile hamburger -->
+      <button @click="open = !open" class="lg:hidden text-white p-1" aria-label="Menu">
+        <span x-show="!open">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+        </span>
+        <span x-show="open" x-cloak>
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6" stroke-linecap="round"/></svg>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div
+    x-show="open" x-cloak
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0 -translate-y-2"
+    x-transition:enter-end="opacity-100 translate-y-0"
+    class="lg:hidden bg-[#0D0D0B]/98 px-6 pb-8 pt-2"
+  >
+    <ul class="flex flex-col gap-6">
+      {navItems.map(({ href, label }) => (
+        <li>
+          <a href={href} @click="open = false" class="text-white/80 text-sm tracking-widest uppercase focus-visible:outline-none focus-visible:underline">
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>

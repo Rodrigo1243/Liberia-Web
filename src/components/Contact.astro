@@ -1,0 +1,89 @@
+---
+interface Props {
+  t: {
+    label: string;
+    title: string;
+    subtitle: string;
+    name: string;
+    email: string;
+    message: string;
+    send: string;
+    success: string;
+  };
+}
+
+const { t } = Astro.props;
+---
+
+<section id="contacto" class="py-28 lg:py-40 bg-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="max-w-2xl">
+
+      <p class="text-black text-xs tracking-[0.3em] uppercase mb-6 font-medium" data-animate>
+        {t.label}
+      </p>
+      <h2 class="font-display text-black text-4xl lg:text-5xl font-light leading-tight mb-4" data-animate>
+        {t.title}
+      </h2>
+      <p class="text-black/60 mb-12" data-animate>{t.subtitle}</p>
+
+      <!-- Form -->
+      <form
+        x-data="{ sent: false, sending: false }"
+        @submit.prevent={`
+          sending = true;
+          setTimeout(() => { sent = true; sending = false; }, 1000);
+        `}
+        class="flex flex-col gap-6"
+        data-animate
+      >
+        <template x-if="!sent">
+          <div class="flex flex-col gap-6">
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div class="flex flex-col gap-2">
+                <label for="contact-name" class="text-xs tracking-widest uppercase text-black/60">{t.name}</label>
+                <input
+                  type="text"
+                  id="contact-name"
+                  required
+                  class="bg-transparent border-b border-black/15 focus:border-black py-3 text-[#0D0D0B] outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-2 transition-colors duration-200"
+                />
+              </div>
+              <div class="flex flex-col gap-2">
+                <label for="contact-email" class="text-xs tracking-widest uppercase text-black/60">{t.email}</label>
+                <input
+                  type="email"
+                  id="contact-email"
+                  required
+                  class="bg-transparent border-b border-black/15 focus:border-black py-3 text-[#0D0D0B] outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-2 transition-colors duration-200"
+                />
+              </div>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="contact-message" class="text-xs tracking-widest uppercase text-black/60">{t.message}</label>
+              <textarea
+                id="contact-message"
+                rows="4"
+                required
+                class="bg-transparent border-b border-black/15 focus:border-black py-3 text-[#0D0D0B] outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-2 transition-colors duration-200 resize-none"
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              :disabled="sending"
+              class="self-start relative overflow-hidden flex items-center gap-3 border border-black/20 text-[#0D0D0B] px-8 py-3 text-xs tracking-widest uppercase backdrop-blur-sm bg-white/60 hover:border-black/25 hover:text-black transition-all duration-300 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-2 cursor-pointer group"
+            >
+              <span x-text={`sending ? '...' : '${t.send}'`}></span>
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="group-hover:translate-x-0.5 transition-transform duration-200"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </template>
+
+        <template x-if="sent">
+          <p class="text-black/50 tracking-wide">{t.success}</p>
+        </template>
+      </form>
+
+    </div>
+  </div>
+</section>

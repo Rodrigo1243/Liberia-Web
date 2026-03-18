@@ -1,0 +1,44 @@
+---
+interface Step {
+  number: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  t: {
+    label: string;
+    title: string;
+    steps: Step[];
+  };
+}
+
+const { t } = Astro.props;
+---
+
+<section id="proceso" class="py-28 lg:py-40 bg-[#0D0D0B]">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+
+    <!-- Header -->
+    <div class="mb-16 lg:mb-24">
+      <p class="text-white/60 text-xs tracking-[0.3em] uppercase mb-4 font-medium" data-animate>
+        {t.label}
+      </p>
+      <h2 class="font-display text-white/60 text-4xl lg:text-5xl font-light" data-animate>
+        {t.title}
+      </h2>
+    </div>
+
+    <!-- Steps -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-px bg-white/10">
+      {t.steps.map((step) => (
+        <div class="bg-[#0D0D0B] p-8 flex flex-col gap-4" data-animate>
+          <span class="font-display text-white/60 text-3xl font-light">{step.number}</span>
+          <h3 class="font-display text-white text-lg font-medium">{step.title}</h3>
+          <p class="text-white/60 text-sm leading-relaxed">{step.description}</p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,138 @@
+---
+interface Member {
+  name: string;
+  role: string;
+  bio: string;
+  image: string;
+  location: string;
+  skills: string[];
+  linkedin?: string;
+  instagram?: string;
+  email?: string;
+}
+
+interface Props {
+  t: {
+    label: string;
+    title: string;
+    subtitle: string;
+    cta: string;
+    ctaLink: string;
+    teamPageLabel: string;
+    teamPageLink: string;
+    members: Member[];
+  };
+  lang: string;
+}
+
+const { t, lang } = Astro.props;
+const founder = t.members[0];
+
+const quote = lang === 'es'
+  ? 'La visualización arquitectónica es el alma de un proyecto antes de que exista.'
+  : 'Architectural visualization is the soul of a project before it exists.';
+---
+
+<section id="equipo" class="bg-[#0D0D0B] overflow-hidden">
+
+  <!-- Section label -->
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 pt-28 lg:pt-40 pb-12" data-animate>
+    <p class="text-white/60 text-xs tracking-[0.3em] uppercase font-medium mb-4">{t.label}</p>
+    <h2 class="font-display text-white/60 text-4xl lg:text-5xl font-light">{t.title}</h2>
+  </div>
+
+  <!-- Founder — full-width split layout -->
+  <div class="flex flex-col lg:flex-row" style="min-height: 82vh;" data-animate>
+
+    <!-- Left: large image -->
+    <div class="relative lg:w-[62%] flex-shrink-0 overflow-hidden" style="min-height: 55vw; max-height: 90vh;">
+      <img
+        src={founder.image}
+        alt={founder.name}
+        class="absolute inset-0 w-full h-full object-cover object-center"
+        loading="lazy"
+      />
+      <!-- subtle gradient so it bleeds into the dark bg on mobile -->
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#0D0D0B]/40 hidden lg:block"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#0D0D0B]/70 via-transparent to-transparent lg:hidden"></div>
+    </div>
+
+    <!-- Right: info panel -->
+    <div class="lg:w-[38%] flex-shrink-0 flex flex-col justify-between px-8 lg:px-12 xl:px-16 py-10 lg:py-14 border-t border-white/5 lg:border-t-0 lg:border-l lg:border-white/5">
+
+      <!-- Top: role + name + quote -->
+      <div>
+        <span class="inline-block text-[10px] tracking-[0.28em] uppercase text-white/60 border border-white/15 bg-white/5 px-3 py-1 mb-6">
+          {founder.role}
+        </span>
+
+        <h3 class="font-display text-white text-3xl lg:text-4xl font-light leading-tight mb-8">
+          {founder.name}
+        </h3>
+
+        <div class="w-8 h-px bg-white/10/50 mb-8"></div>
+
+        <!-- Quote -->
+        <blockquote class="text-white/60 text-base lg:text-lg font-light leading-relaxed italic mb-8 border-l-2 border-white/15 pl-5">
+          "{quote}"
+        </blockquote>
+
+        <p class="text-white/40 text-sm leading-relaxed mb-8">
+          {founder.bio}
+        </p>
+
+        <!-- Skills -->
+        <div class="flex flex-wrap gap-2 mb-8">
+          {founder.skills.map((skill) => (
+            <span class="text-xs text-white/35 border border-white/10 px-3 py-1">{skill}</span>
+          ))}
+        </div>
+
+        <!-- Social -->
+        <div class="flex gap-2 mb-10">
+          {founder.instagram && (
+            <a href={founder.instagram} target="_blank" rel="noopener" aria-label="Instagram"
+              class="w-9 h-9 border border-white/10 bg-white/5 flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-colors duration-200 cursor-pointer">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+          )}
+          {founder.linkedin && (
+            <a href={founder.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn"
+              class="w-9 h-9 border border-white/10 bg-white/5 flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-colors duration-200 cursor-pointer">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+          )}
+          {founder.email && (
+            <a href={`mailto:${founder.email}`} aria-label="Email"
+              class="w-9 h-9 border border-white/10 bg-white/5 flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-colors duration-200 cursor-pointer">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Bottom: CTA buttons -->
+      <div class="flex flex-col gap-3">
+        <a
+          href={`/${lang}/equipo`}
+          class="group flex items-center justify-center gap-3 bg-white/8 border border-white/20 text-white/80 hover:text-white hover:bg-white/12 hover:border-white/30 text-[10px] tracking-[0.25em] uppercase px-6 py-4 transition-all duration-200 cursor-pointer"
+        >
+          {t.teamPageLabel}
+          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="transition-transform duration-300 group-hover:translate-x-0.5"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a
+          href={`/${lang}#contacto`}
+          class="flex items-center justify-center gap-3 border border-white/15 text-white/50 hover:text-white hover:border-white/30 text-[10px] tracking-[0.25em] uppercase px-6 py-4 transition-all duration-200 cursor-pointer"
+        >
+          {lang === 'es' ? 'Consultar' : 'Contact'}
+          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom padding -->
+  <div class="pb-16 lg:pb-24"></div>
+
+</section>

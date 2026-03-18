@@ -1,0 +1,85 @@
+---
+import { projects } from '../../data/projects';
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout lang="en" title="Projects">
+
+  <div class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 lg:px-12 h-16 lg:h-20 bg-[#0D0D0B]/90 backdrop-blur-md border-b border-white/5">
+    <a href="/en#portfolio" class="flex items-center gap-2 text-white/50 hover:text-white text-xs tracking-widest uppercase transition-colors duration-200">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path d="M19 12H5M12 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back
+    </a>
+    <a href="/en">
+      <img src="/images/isotipo.png" alt="Líbera Estudio" class="h-8 w-auto" style="filter: brightness(0) invert(1);" />
+    </a>
+    <a href="/es/proyectos" class="text-white/30 hover:text-white text-xs tracking-widest uppercase transition-colors duration-200">ES</a>
+  </div>
+
+  <main class="bg-[#0D0D0B] min-h-screen pt-20 lg:pt-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-14">
+
+      <div class="mb-16">
+        <p class="text-white/60 text-xs tracking-[0.3em] uppercase font-medium mb-4">Portfolio</p>
+        <h1 class="font-display text-white/60 text-4xl lg:text-5xl font-light">All projects.</h1>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {projects.map((project) => (
+          <a
+            href={`/en/proyecto/${project.slug}`}
+            class="group relative block  overflow-hidden bg-white/[0.03] border border-white/8 hover:border-white/20 transition-all duration-500 cursor-pointer"
+          >
+            <div class="relative overflow-hidden" style="aspect-ratio: 4/3;">
+              <img
+                src={project.images[0]}
+                alt={project.title}
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0D0D0B]/80 via-transparent to-transparent"></div>
+              <div class="absolute top-4 right-4 bg-black/50 backdrop-blur-sm border border-white/10 text-white/60 text-[10px] tracking-widest uppercase px-3 py-1 ">
+                {project.images.length} images
+              </div>
+            </div>
+
+            <div class="p-6">
+              <p class="text-white/60 text-[10px] tracking-[0.3em] uppercase font-medium mb-2">{project.category}</p>
+              <h2 class="font-display text-white text-xl font-light mb-3 group-hover:text-white/90 transition-colors">{project.title}</h2>
+              <div class="flex items-center justify-between">
+                <div class="flex gap-3 text-white/30 text-xs">
+                  <span>{project.location}</span>
+                  <span>·</span>
+                  <span>{project.year}</span>
+                </div>
+                <span class="text-white/60 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1">
+                  View
+                  <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </div>
+              <div class="flex flex-wrap gap-2 mt-4">
+                {project.tools.slice(0, 3).map((tool) => (
+                  <span class="text-[10px] text-white/30 border border-white/8  px-2.5 py-0.5">{tool}</span>
+                ))}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-20 pt-12 border-t border-white/8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <p class="text-white/30 text-sm">Got a project in mind?</p>
+        <a
+          href="/en#contacto"
+          class="flex items-center gap-2 border border-white/20 text-white/70 hover:text-white hover:bg-white/8 hover:border-white/30 text-xs tracking-[0.2em] uppercase px-7 py-3.5  transition-all duration-300 cursor-pointer"
+        >
+          Let's talk
+          <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </main>
+</Layout>

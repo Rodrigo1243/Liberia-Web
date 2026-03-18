@@ -1,0 +1,73 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  title?: string;
+}
+
+const { lang, title = 'Líbera Estudio' } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={lang === 'es' ? 'Visualización arquitectónica de alto impacto. Renders exteriores, interiores, animaciones 3D.' : 'High-impact architectural visualization. Exterior renders, interiors, 3D animations.'} />
+    <meta property="og:title" content={`${title} — Líbera Estudio`} />
+    <meta property="og:description" content={lang === 'es' ? 'Visualización arquitectónica de alto impacto. Renders exteriores, interiores, animaciones 3D.' : 'High-impact architectural visualization. Exterior renders, interiors, 3D animations.'} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/images/hero/REAR NIGHT VIEW.jpg.jpeg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} — Líbera Estudio`} />
+    <meta name="twitter:description" content={lang === 'es' ? 'Visualización arquitectónica de alto impacto. Renders exteriores, interiores, animaciones 3D.' : 'High-impact architectural visualization. Exterior renders, interiors, 3D animations.'} />
+    <meta name="twitter:image" content="/images/hero/REAR NIGHT VIEW.jpg.jpeg" />
+    <link rel="icon" type="image/png" href="/images/isotipo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <title>{title} — Líbera Estudio</title>
+  </head>
+  <body class="bg-[#F0E4E8] text-[#0D0D0B] antialiased">
+    <Nav lang={lang} t={t.nav} />
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} t={t.footer} />
+    <script>
+      import gsap from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+      gsap.registerPlugin(ScrollTrigger);
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Fade-in on scroll for all [data-animate] elements
+      document.querySelectorAll('[data-animate]').forEach((el) => {
+        if (prefersReducedMotion) {
+          (el as HTMLElement).style.opacity = '1';
+          return;
+        }
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      });
+    </script>
+  </body>
+</html>

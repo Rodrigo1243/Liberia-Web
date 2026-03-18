@@ -1,0 +1,45 @@
+---
+interface Props {
+  t: {
+    label: string;
+    title: string;
+    body: string;
+  };
+}
+
+const { t } = Astro.props;
+---
+
+<section id="estudio" class="py-28 lg:py-40 bg-[#F0E4E8]">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+      <!-- Text -->
+      <div>
+        <p class="text-[#7B2B3E] text-xs tracking-[0.3em] uppercase mb-6 font-medium" data-animate>
+          {t.label}
+        </p>
+        <h2
+          class="font-display text-[#0D0D0B] text-4xl lg:text-5xl font-light leading-tight mb-8"
+          data-animate
+        >
+          {t.title}
+        </h2>
+        <p class="text-[#6B6560] text-lg leading-relaxed" data-animate>
+          {t.body}
+        </p>
+      </div>
+
+      <!-- Image -->
+      <div class="relative" data-animate>
+        <img
+          src="/images/hero/FRENTE PRIDE FINAL-B.jpg.jpeg"
+          alt="Líbera Estudio"
+          class="w-full aspect-[4/3] object-cover"
+          loading="lazy"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
