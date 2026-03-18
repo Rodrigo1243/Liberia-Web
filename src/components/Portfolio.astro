@@ -19,9 +19,9 @@ interface Props {
 }
 
 const { t, lang, expandLabel, collapseLabel } = Astro.props;
-const _expandLabel   = expandLabel  ?? (lang === 'es' ? 'Ver todos los proyectos' : 'View all projects');
+const _expandLabel   = expandLabel  ?? (lang === 'es' ? 'Más proyectos' : 'More projects');
 const _collapseLabel = collapseLabel ?? (lang === 'es' ? 'Colapsar'               : 'Collapse');
-const allProjectsLabel = lang === 'es' ? 'Ver todos los proyectos' : 'View all projects';
+const allProjectsLabel = lang === 'es' ? 'Más proyectos' : 'More projects';
 const allProjectsUrl   = `/${lang}/proyectos`;
 const consultarLabel   = lang === 'es' ? 'Consultar'              : 'Contact';
 const viewProjectLabel = lang === 'es' ? 'Ver proyecto completo'  : 'View full project';
@@ -83,7 +83,7 @@ const toolsDouble = [...tools, ...tools];
     <!-- Grid wrapper — collapses when not expanded -->
     <div class="relative">
       <div
-        :class="expanded ? '' : 'max-h-[160vh] overflow-hidden'"
+        :class="expanded ? '' : 'max-h-[90vh] overflow-hidden'"
         style="transition: max-height 0.6s ease;"
       >
         <div class="grid grid-cols-12 gap-px" style="background: #1a1a18;">
