@@ -70,20 +70,6 @@ const { t, lang } = Astro.props;
       </a>
     </div>
 
-    <!-- Bottom right: floating card -->
-    <div id="hero-card" class="hidden sm:flex flex-col bg-white/10 backdrop-blur-md border border-white/15 p-5 max-w-[220px] gap-3">
-      <p class="text-white/50 text-[10px] tracking-[0.25em] uppercase">{lang === 'es' ? 'Proyectos realizados' : 'Projects completed'}</p>
-      <p class="font-display text-white text-4xl font-bold leading-none">18+</p>
-      <p class="text-white/40 text-xs leading-relaxed">{lang === 'es' ? 'En 10 países alrededor del mundo.' : 'Across 10 countries worldwide.'}</p>
-      <a
-        href={`/${lang}#portfolio`}
-        class="flex items-center gap-2 text-white/60 text-[10px] tracking-[0.2em] uppercase hover:gap-3 transition-all duration-200"
-      >
-        {lang === 'es' ? 'Ver portfolio' : 'View portfolio'}
-        <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-
   </div>
 </section>
 
@@ -92,7 +78,7 @@ const { t, lang } = Astro.props;
     opacity: 0;
     transform: translateY(60px);
   }
-  #hero-bottom-left, #hero-scroll-btn, #hero-card {
+  #hero-bottom-left, #hero-scroll-btn {
     opacity: 0;
     transform: translateY(20px);
   }
@@ -104,7 +90,7 @@ const { t, lang } = Astro.props;
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (prefersReducedMotion) {
-    ['#hero-title', '#hero-bottom-left', '#hero-scroll-btn', '#hero-card'].forEach((id) => {
+    ['#hero-title', '#hero-bottom-left', '#hero-scroll-btn'].forEach((id) => {
       const el = document.querySelector(id) as HTMLElement | null;
       if (el) { el.style.opacity = '1'; el.style.transform = 'none'; }
     });
@@ -112,7 +98,6 @@ const { t, lang } = Astro.props;
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     tl.to('#hero-title',       { opacity: 1, y: 0, duration: 1.1, delay: 0.1 })
       .to('#hero-bottom-left', { opacity: 1, y: 0, duration: 0.7 }, '-=0.5')
-      .to('#hero-scroll-btn',  { opacity: 1, y: 0, duration: 0.5 }, '-=0.5')
-      .to('#hero-card',        { opacity: 1, y: 0, duration: 0.6 }, '-=0.4');
+      .to('#hero-scroll-btn',  { opacity: 1, y: 0, duration: 0.5 }, '-=0.5');
   }
 </script>

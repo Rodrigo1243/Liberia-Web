@@ -55,10 +55,6 @@ const projects = allProjects.flatMap((p) =>
   }))
 ).slice(0, layout.length).map((item, i) => ({ ...item, ...layout[i] }));
 
-const countries = ['AU Australia','DE Alemania','NL Holanda','AR Argentina','UY Uruguay','MX México','US Estados Unidos','ES España','GB Inglaterra','JP Japón'];
-const tools = ['Photoshop','3ds Max','SketchUp','V-Ray','D5 Render','Lumion','AutoCAD','Corona Renderer'];
-const countriesDouble = [...countries, ...countries];
-const toolsDouble = [...tools, ...tools];
 ---
 
 <section id="portfolio" class="bg-[#0D0D0B]">
@@ -225,35 +221,10 @@ const toolsDouble = [...tools, ...tools];
 
   </div>
 
-  <!-- Marquee — below the portfolio grid -->
-  <div class="py-10 overflow-hidden select-none border-t border-white/5">
-
-    <div class="marquee-track mb-4">
-      <div class="marquee-inner marquee-ltr">
-        {countriesDouble.map((item) => (
-          <span class="marquee-item text-white font-display text-sm tracking-widest uppercase">
-            {item}
-            <span class="mx-8 text-white/60">·</span>
-          </span>
-        ))}
-      </div>
-    </div>
-
-
-  </div>
 
 </section>
 
 <style>
-  .marquee-track { overflow: hidden; width: 100%; }
-  .marquee-inner { display: flex; width: max-content; white-space: nowrap; }
-  .marquee-item  { display: inline-flex; align-items: center; }
-  .marquee-ltr   { animation: marquee-ltr 30s linear infinite; }
-  .marquee-rtl   { animation: marquee-rtl 25s linear infinite; }
-  @keyframes marquee-ltr { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  @keyframes marquee-rtl { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-  .marquee-track:hover .marquee-inner { animation-play-state: paused; }
-
   .frost-blur {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
