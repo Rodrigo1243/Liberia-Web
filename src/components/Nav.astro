@@ -19,7 +19,6 @@ const otherLang = lang === 'es' ? 'en' : 'es';
 const navItems = [
   { href: `/${lang}#portfolio`, label: t.portfolio },
   { href: `/${lang}#servicios`, label: t.services },
-  { href: `/${lang}#proceso`,   label: t.process },
   { href: `/${lang}#equipo`,    label: t.team },
   { href: `/${lang}#contacto`,  label: t.contact },
 ];
@@ -51,7 +50,7 @@ const navItems = [
               this.pillLeft = links[0].offsetLeft;
               this.pillWidth = links[0].offsetWidth;
             }
-            const sectionIds = ['portfolio','servicios','proceso','equipo','contacto'];
+            const sectionIds = ['portfolio','servicios','equipo','contacto'];
             const updateActive = () => {
               const offset = window.innerHeight * 0.4;
               let current = 0;
