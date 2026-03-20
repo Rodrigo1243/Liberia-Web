@@ -23,7 +23,6 @@ const _expandLabel   = expandLabel  ?? (lang === 'es' ? 'Más proyectos' : 'More
 const _collapseLabel = collapseLabel ?? (lang === 'es' ? 'Colapsar'               : 'Collapse');
 const allProjectsLabel = lang === 'es' ? 'Más proyectos' : 'More projects';
 const allProjectsUrl   = `/${lang}/proyectos`;
-const consultarLabel   = lang === 'es' ? 'Consultar'              : 'Contact';
 const viewProjectLabel = lang === 'es' ? 'Ver proyecto completo'  : 'View full project';
 
 // Layout config: col span + height for each slot in the grid
@@ -204,14 +203,6 @@ const projects = allProjects.flatMap((p) =>
               >
                 {viewProjectLabel}
                 <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-              <a
-                href="#contacto"
-                @click="close()"
-                class="flex items-center justify-center gap-2 border border-white/15 text-white/50 hover:text-white hover:border-white/30 text-[10px] tracking-[0.2em] uppercase px-5 py-3  transition-all duration-200 cursor-pointer"
-              >
-                {consultarLabel}
-                <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </div>
           </div>
