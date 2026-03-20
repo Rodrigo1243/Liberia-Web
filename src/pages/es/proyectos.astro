@@ -45,10 +45,6 @@ import Layout from '../../layouts/Layout.astro';
               />
               <div class="absolute inset-0 bg-gradient-to-t from-[#0D0D0B]/80 via-transparent to-transparent"></div>
 
-              <!-- Image count badge -->
-              <div class="absolute top-4 right-4 bg-black/50 backdrop-blur-sm border border-white/10 text-white/60 text-[10px] tracking-widest uppercase px-3 py-1 ">
-                {project.images.length} imágenes
-              </div>
             </div>
 
             <!-- Info -->
@@ -67,12 +63,6 @@ import Layout from '../../layouts/Layout.astro';
                 </span>
               </div>
 
-              <!-- Tool tags -->
-              <div class="flex flex-wrap gap-2 mt-4">
-                {project.tools.slice(0, 3).map((tool) => (
-                  <span class="text-[10px] text-white/30 border border-white/8  px-2.5 py-0.5">{tool}</span>
-                ))}
-              </div>
             </div>
           </a>
         ))}
