@@ -1,8 +1,24 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'IBrand';
+  src: url('/fonts/ibrand.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Aptos';
+  src: url('/fonts/Aptos-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
+  --font-display: 'IBrand', sans-serif;
+  --font-body: 'Aptos', sans-serif;
   --color-dark: #0D0D0B;
   --color-cream: #F0E4E8;
   --color-white: #FFFFFF;
