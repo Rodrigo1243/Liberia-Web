@@ -8,7 +8,7 @@ export const es = {
     lang: 'EN',
   },
   hero: {
-    tagline: 'Arquitectura que se ve.',
+    tagline: 'Creamos.',
     cta: 'Ver portfolio',
     scroll: 'Scroll',
   },
