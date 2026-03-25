@@ -158,7 +158,6 @@ export const projects: Project[] = [
     coverImages: [
       '/images/portfolio/casa-decker/01-FRENTE-DEKCER.jpg',
       '/images/portfolio/casa-decker/03-ESTAR-COMEDOR.jpg',
-      '/images/portfolio/casa-decker/08-BAÑO.jpg',
     ],
     images: [
       '/images/portfolio/casa-decker/01-FRENTE-DEKCER.jpg',
@@ -184,10 +183,7 @@ export const projects: Project[] = [
       es: 'Edificio residencial en CABA. Visualizaciones de fachada orientadas a comunicar la materialidad y volumetría del proyecto para su etapa de comercialización.',
       en: 'Residential building in Buenos Aires. Façade visualizations aimed at communicating the project\'s materiality and massing during its commercialization phase.',
     },
-    coverImages: [
-      '/images/portfolio/diaz-velez/DIAZ-VELEZ-01.jpg',
-      '/images/portfolio/diaz-velez/DIAZ-VELEZ-02.jpg',
-    ],
+    coverImages: [],
     images: [
       '/images/portfolio/diaz-velez/DIAZ-VELEZ-01.jpg',
       '/images/portfolio/diaz-velez/DIAZ-VELEZ-02.jpg',
@@ -205,10 +201,7 @@ export const projects: Project[] = [
       es: 'Edificio residencial en CABA con visualizaciones de fachada principal, laterales y espacios interiores. Un trabajo integral que acompaña la identidad arquitectónica del proyecto con renders de alta precisión.',
       en: 'Residential building in Buenos Aires with visualizations of the main façade, side elevations and interior spaces. A comprehensive project that supports the building\'s architectural identity with high-precision renders.',
     },
-    coverImages: [
-      '/images/portfolio/pride/01-FRENTE-PRIDE-FINAL-B.jpg',
-      '/images/portfolio/pride/02-INTERIOR-PRIDE-FINAL.jpg',
-    ],
+    coverImages: [],
     images: [
       '/images/portfolio/pride/01-FRENTE-PRIDE-FINAL-B.jpg',
       '/images/portfolio/pride/02-INTERIOR-PRIDE-FINAL.jpg',
@@ -228,10 +221,7 @@ export const projects: Project[] = [
       es: 'Complejo deportivo en Bahía Blanca. Las visualizaciones cubren el acceso al gimnasio, las canchas y las salas de máquinas, comunicando tanto la funcionalidad del espacio como su imagen institucional.',
       en: 'Sports complex in Bahía Blanca. Visualizations cover the gym entrance, courts and equipment rooms, conveying both the functionality of the space and its institutional image.',
     },
-    coverImages: [
-      '/images/portfolio/sport-club-bahia-blanca/01-ACCESO-GYM.jpg',
-      '/images/portfolio/sport-club-bahia-blanca/02-CANCHAS-GYM.jpg',
-    ],
+    coverImages: [],
     images: [
       '/images/portfolio/sport-club-bahia-blanca/01-ACCESO-GYM.jpg',
       '/images/portfolio/sport-club-bahia-blanca/02-CANCHAS-GYM.jpg',
@@ -252,10 +242,7 @@ export const projects: Project[] = [
       es: 'Edificio residencial en CABA. Vistas de fachada que transmiten la escala y materialidad del proyecto en su contexto urbano, orientadas a la etapa de comercialización.',
       en: 'Residential building in Buenos Aires. Façade views that convey the project\'s scale and materiality in its urban context, created for the commercialization phase.',
     },
-    coverImages: [
-      '/images/portfolio/suarez/SUAREZ-FRENTE-01F.jpg',
-      '/images/portfolio/suarez/SUAREZ-02F-.jpg',
-    ],
+    coverImages: [],
     images: [
       '/images/portfolio/suarez/SUAREZ-FRENTE-01F.jpg',
       '/images/portfolio/suarez/SUAREZ-02F-.jpg',

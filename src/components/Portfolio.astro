@@ -26,7 +26,7 @@ const allProjectsUrl   = `/${lang}/proyectos`;
 const viewProjectLabel = lang === 'es' ? 'Ver proyecto completo'  : 'View full project';
 
 // Layout config: col span + height for each slot in the grid
-// Rows must sum to 12. 24 cover images across 10 projects.
+// 15 cover images across 6 projects.
 const layout: { col: number; h: number }[] = [
   { col: 7,  h: 65 }, { col: 5,  h: 65 }, // row 1
   { col: 12, h: 75 },                      // row 2 (full)
@@ -36,12 +36,7 @@ const layout: { col: number; h: number }[] = [
   { col: 4,  h: 55 }, { col: 8,  h: 55 }, // row 6
   { col: 12, h: 72 },                      // row 7 (full)
   { col: 7,  h: 60 }, { col: 5,  h: 60 }, // row 8
-  { col: 6,  h: 55 }, { col: 6,  h: 55 }, // row 9
-  { col: 12, h: 80 },                      // row 10 (full)
-  { col: 8,  h: 65 }, { col: 4,  h: 65 }, // row 11
-  { col: 5,  h: 58 }, { col: 7,  h: 58 }, // row 12
-  { col: 6,  h: 52 }, { col: 6,  h: 52 }, // row 13
-  { col: 12, h: 70 },                      // row 14 (full)
+  { col: 12, h: 75 },                      // row 9 (full)
 ];
 
 // Flatten coverImages from all projects into grid items
