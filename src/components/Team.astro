@@ -37,8 +37,7 @@ const quote = lang === 'es'
 
   <!-- Section label -->
   <div class="max-w-7xl mx-auto px-6 lg:px-12 pt-28 lg:pt-40 pb-12" data-animate>
-    <p class="text-white/60 text-xs tracking-[0.3em] uppercase font-medium mb-4">{t.label}</p>
-    <h2 class="font-display text-white/60 text-4xl lg:text-5xl font-light">{t.title}</h2>
+    <h2 class="font-display text-white text-4xl lg:text-5xl font-light">Nosotros.</h2>
   </div>
 
   <!-- Founder — full-width split layout -->
@@ -77,24 +76,20 @@ const quote = lang === 'es'
           "{quote}"
         </blockquote>
 
-        <p class="text-white/40 text-sm leading-relaxed mb-8">
-          {founder.bio}
-        </p>
-
       </div>
 
       <!-- Bottom: CTA buttons -->
       <div class="flex flex-col gap-3">
         <a
           href={`/${lang}/equipo`}
-          class="group flex items-center justify-center gap-3 bg-white/8 border border-white/20 text-white/80 hover:text-white hover:bg-white/12 hover:border-white/30 text-[10px] tracking-[0.25em] uppercase px-6 py-4 transition-all duration-200 cursor-pointer"
+          class="group flex items-center justify-center gap-3 text-white/70 hover:text-white text-[10px] tracking-[0.25em] uppercase py-4 transition-colors duration-200 cursor-pointer"
         >
           {t.teamPageLabel}
           <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="transition-transform duration-300 group-hover:translate-x-0.5"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
         <a
           href={`/${lang}#contacto`}
-          class="flex items-center justify-center gap-3 border border-white/15 text-white/50 hover:text-white hover:border-white/30 text-[10px] tracking-[0.25em] uppercase px-6 py-4 transition-all duration-200 cursor-pointer"
+          class="flex items-center justify-center gap-3 text-white/40 hover:text-white text-[10px] tracking-[0.25em] uppercase py-4 transition-colors duration-200 cursor-pointer"
         >
           {lang === 'es' ? 'Consultar' : 'Contact'}
           <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
