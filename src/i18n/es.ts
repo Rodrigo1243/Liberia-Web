@@ -18,24 +18,24 @@ export const es = {
     body: 'En Líbera Estudio creamos renders, animaciones y recorridos 3D que comunican el valor de cada proyecto antes de que exista. Trabajamos con estudios de arquitectura, diseñadores de interiores, constructoras y desarrolladoras que entienden que la imagen es parte del proceso.',
   },
   services: {
-    label: 'Servicios',
-    title: 'Lo que hacemos.',
+    label: '',
+    title: 'Servicios.',
     items: [
       {
-        title: 'Renders exteriores',
-        description: 'Imágenes de alta resolución que muestran el exterior de cada proyecto con luz, contexto y realismo fotográfico.',
+        title: 'Visualización arquitectónica',
+        description: 'Renders de alta resolución que comunican exteriores, interiores y materialidad con realismo fotográfico.',
       },
       {
-        title: 'Renders interiores',
-        description: 'Espacios interiores con materiales, iluminación y atmósfera que transmiten la experiencia de habitar.',
+        title: 'BIM',
+        description: 'Modelado y coordinación de proyectos en entornos BIM para una documentación precisa y colaborativa.',
       },
       {
-        title: 'Animaciones y recorridos 3D',
-        description: 'Videos y recorridos inmersivos que permiten experimentar el proyecto en movimiento.',
+        title: 'Proyecto ejecutivo',
+        description: 'Documentación técnica completa para la ejecución de obra: plantas, cortes, detalles y especificaciones.',
       },
       {
-        title: 'Visualización de producto',
-        description: 'Renders de producto y mobiliario para catálogos, presentaciones y campañas digitales.',
+        title: 'Diseño',
+        description: 'Desarrollo de concepto y propuesta arquitectónica adaptada a cada programa y contexto.',
       },
     ],
   },
@@ -62,7 +62,7 @@ export const es = {
     ],
   },
   team: {
-    label: 'Equipo',
+    label: 'Nosotros',
     title: 'Las personas detrás del trabajo.',
     subtitle: 'Un equipo apasionado por la arquitectura y la imagen.',
     cta: '¿Querés ser parte del equipo?',
